@@ -1,0 +1,29 @@
+specVersion: 0.0.4
+schema:
+  file: solidity-token-erc721-cards.schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: marketplace
+    network: mumbai-node-87b7
+    source:
+      address: "0xA3C1a5c4E7e754A2633CFF61329d30894291A95E"
+      abi: Marketplace
+      startBlock: 26555246
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - Marketplace
+        - Collection
+      abis:
+        - name: Marketplace
+          file: ../abi/Marketplace.json
+        - name: IERC721Metadata
+          file: ../abi/IERC721Metadata.json
+      eventHandlers:
+        - event: RegisterCollection(address,string,string)
+          handler: handleRegisterCollection
+        - event: ItemListed(address,address,uint256,uint256,address,uint256,uint256)
+          handler: handleItemListed
+      file: ../subgraph/datasources/marketplace.ts
