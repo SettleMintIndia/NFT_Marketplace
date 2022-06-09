@@ -4,8 +4,8 @@
   "datasources": [
     {
       "name": "Marketplace",
-      "address": "0xA3C1a5c4E7e754A2633CFF61329d30894291A95E",
-      "startBlock": 26555246,
+      "address": "0xD7CA0b671AAD0B96076475277F92Ea742c08634B",
+      "startBlock": 26582659,
       "module": [
         "marketplace"
       ]

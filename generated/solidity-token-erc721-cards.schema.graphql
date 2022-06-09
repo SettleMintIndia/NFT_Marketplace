@@ -6,12 +6,22 @@ type Collection @entity {
 	type: String
 	owner: String
 	volume: BigInt
-	transactions: [NftTransaction!]! @derivedFrom(field: "transactionHash")
+	transactions: [ListTransaction!]! @derivedFrom(field: "transactionHash")
+	transactions1: [SoldTransaction!]! @derivedFrom(field: "transactionHash")
 }
-type NftTransaction @entity {
+type ListTransaction @entity {
 	id: Bytes!
 	transactionHash: Collection
-	transactionType: String
+	nftAddress: Bytes
+	tokenId: BigInt
+	uri: String
+	from: Bytes
+	to: Bytes
+	salePrice: BigInt
+}
+type SoldTransaction @entity {
+	id: Bytes!
+	transactionHash: Collection
 	nftAddress: Bytes
 	tokenId: BigInt
 	uri: String

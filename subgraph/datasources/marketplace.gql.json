@@ -9,15 +9,28 @@
       { "name": "type", "type": "String" },
       { "name": "owner", "type": "String" },
       { "name": "volume", "type": "BigInt" },
-      { "name": "transactions", "type": "NftTransaction!", "derived": "transactionHash" }
+      { "name": "transactions", "type": "ListTransaction!", "derived": "transactionHash" },
+      { "name": "transactions1", "type": "SoldTransaction!", "derived": "transactionHash" }
     ]
   },
   {
-    "name": "NftTransaction",
+    "name": "ListTransaction",
     "fields": [
       { "name": "id", "type": "Bytes!" },
       { "name": "transactionHash", "type": "Collection" },
-      { "name": "transactionType", "type": "String" },
+      { "name": "nftAddress", "type": "Bytes" },
+      { "name": "tokenId", "type": "BigInt" },
+      { "name": "uri", "type": "String" },
+      { "name": "from", "type": "Bytes" },
+      { "name": "to", "type": "Bytes" },
+      { "name": "salePrice", "type": "BigInt" }
+    ]
+  },
+  {
+    "name": "SoldTransaction",
+    "fields": [
+      { "name": "id", "type": "Bytes!" },
+      { "name": "transactionHash", "type": "Collection" },
       { "name": "nftAddress", "type": "Bytes" },
       { "name": "tokenId", "type": "BigInt" },
       { "name": "uri", "type": "String" },

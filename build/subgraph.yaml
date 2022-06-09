@@ -6,9 +6,9 @@ dataSources:
     name: marketplace
     network: mumbai-node-87b7
     source:
-      address: "0xA3C1a5c4E7e754A2633CFF61329d30894291A95E"
+      address: "0xD7CA0b671AAD0B96076475277F92Ea742c08634B"
       abi: Marketplace
-      startBlock: 26555246
+      startBlock: 26582659
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.5
@@ -26,4 +26,7 @@ dataSources:
           handler: handleRegisterCollection
         - event: ItemListed(address,address,uint256,uint256,address,uint256,uint256)
           handler: handleItemListed
+        - event: ItemSold(indexed address,indexed address,indexed
+            address,uint256,uint256,address,uint256)
+          handler: handleItemSold
       file: marketplace/marketplace.wasm

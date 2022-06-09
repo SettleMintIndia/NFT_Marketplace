@@ -22,4 +22,6 @@
           handler: handleRegisterCollection
         - event: ItemListed(address,address,uint256,uint256,address,uint256,uint256)
           handler: handleItemListed
+        - event: ItemSold(indexed address,indexed address,indexed address,uint256,uint256,address,uint256)
+          handler: handleItemSold
       file: {file}

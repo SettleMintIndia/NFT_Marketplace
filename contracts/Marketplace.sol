@@ -9,6 +9,7 @@ import "@openzeppelin/contracts-upgradeable/security/ReentrancyGuardUpgradeable.
 import "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
+import "hardhat/console.sol";
 
 interface ITokenRegistry {
   function enabled(address) external view returns (bool);
@@ -109,7 +110,7 @@ contract Marketplace is Initializable, OwnableUpgradeable, ReentrancyGuardUpgrad
     address _owner
   ) {
     Listing memory listing = listings[_nftAddress][_tokenId][_owner];
-    require(listing.quantity == 0, "already listed");
+    //require(listing.quantity == 0, "already listed");
     _;
   }
 
@@ -153,7 +154,7 @@ contract Marketplace is Initializable, OwnableUpgradeable, ReentrancyGuardUpgrad
   ) external notListed(_nftAddress, _tokenId, _msgSender()) {
     IERC721 nft = IERC721(_nftAddress);
     require(nft.ownerOf(_tokenId) == _msgSender(), "not owning item");
-    // require(nft.isApprovedForAll(_msgSender(), address(this)), "item not approved");
+    require(nft.isApprovedForAll(_msgSender(), address(this)), "item not approved");
 
     // _validPayToken(_payToken);
     // _payToken = 0xe11A86849d99F524cAC3E7A0Ec1241828e332C62; // TODO: Remove this- Static pay token address for now

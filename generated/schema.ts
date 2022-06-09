@@ -154,9 +154,18 @@ export class Collection extends Entity {
   set transactions(value: Array<Bytes>) {
     this.set("transactions", Value.fromBytesArray(value));
   }
+
+  get transactions1(): Array<Bytes> {
+    let value = this.get("transactions1");
+    return value!.toBytesArray();
+  }
+
+  set transactions1(value: Array<Bytes>) {
+    this.set("transactions1", Value.fromBytesArray(value));
+  }
 }
 
-export class NftTransaction extends Entity {
+export class ListTransaction extends Entity {
   constructor(id: Bytes) {
     super();
     this.set("id", Value.fromBytes(id));
@@ -164,19 +173,19 @@ export class NftTransaction extends Entity {
 
   save(): void {
     let id = this.get("id");
-    assert(id != null, "Cannot save NftTransaction entity without an ID");
+    assert(id != null, "Cannot save ListTransaction entity without an ID");
     if (id) {
       assert(
         id.kind == ValueKind.BYTES,
-        `Entities of type NftTransaction must have an ID of type Bytes but the id '${id.displayData()}' is of type ${id.displayKind()}`
+        `Entities of type ListTransaction must have an ID of type Bytes but the id '${id.displayData()}' is of type ${id.displayKind()}`
       );
-      store.set("NftTransaction", id.toBytes().toHexString(), this);
+      store.set("ListTransaction", id.toBytes().toHexString(), this);
     }
   }
 
-  static load(id: Bytes): NftTransaction | null {
-    return changetype<NftTransaction | null>(
-      store.get("NftTransaction", id.toHexString())
+  static load(id: Bytes): ListTransaction | null {
+    return changetype<ListTransaction | null>(
+      store.get("ListTransaction", id.toHexString())
     );
   }
 
@@ -206,8 +215,42 @@ export class NftTransaction extends Entity {
     }
   }
 
-  get transactionType(): string | null {
-    let value = this.get("transactionType");
+  get nftAddress(): Bytes | null {
+    let value = this.get("nftAddress");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toBytes();
+    }
+  }
+
+  set nftAddress(value: Bytes | null) {
+    if (!value) {
+      this.unset("nftAddress");
+    } else {
+      this.set("nftAddress", Value.fromBytes(<Bytes>value));
+    }
+  }
+
+  get tokenId(): BigInt | null {
+    let value = this.get("tokenId");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set tokenId(value: BigInt | null) {
+    if (!value) {
+      this.unset("tokenId");
+    } else {
+      this.set("tokenId", Value.fromBigInt(<BigInt>value));
+    }
+  }
+
+  get uri(): string | null {
+    let value = this.get("uri");
     if (!value || value.kind == ValueKind.NULL) {
       return null;
     } else {
@@ -215,11 +258,113 @@ export class NftTransaction extends Entity {
     }
   }
 
-  set transactionType(value: string | null) {
+  set uri(value: string | null) {
     if (!value) {
-      this.unset("transactionType");
+      this.unset("uri");
     } else {
-      this.set("transactionType", Value.fromString(<string>value));
+      this.set("uri", Value.fromString(<string>value));
+    }
+  }
+
+  get from(): Bytes | null {
+    let value = this.get("from");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toBytes();
+    }
+  }
+
+  set from(value: Bytes | null) {
+    if (!value) {
+      this.unset("from");
+    } else {
+      this.set("from", Value.fromBytes(<Bytes>value));
+    }
+  }
+
+  get to(): Bytes | null {
+    let value = this.get("to");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toBytes();
+    }
+  }
+
+  set to(value: Bytes | null) {
+    if (!value) {
+      this.unset("to");
+    } else {
+      this.set("to", Value.fromBytes(<Bytes>value));
+    }
+  }
+
+  get salePrice(): BigInt | null {
+    let value = this.get("salePrice");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set salePrice(value: BigInt | null) {
+    if (!value) {
+      this.unset("salePrice");
+    } else {
+      this.set("salePrice", Value.fromBigInt(<BigInt>value));
+    }
+  }
+}
+
+export class SoldTransaction extends Entity {
+  constructor(id: Bytes) {
+    super();
+    this.set("id", Value.fromBytes(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id != null, "Cannot save SoldTransaction entity without an ID");
+    if (id) {
+      assert(
+        id.kind == ValueKind.BYTES,
+        `Entities of type SoldTransaction must have an ID of type Bytes but the id '${id.displayData()}' is of type ${id.displayKind()}`
+      );
+      store.set("SoldTransaction", id.toBytes().toHexString(), this);
+    }
+  }
+
+  static load(id: Bytes): SoldTransaction | null {
+    return changetype<SoldTransaction | null>(
+      store.get("SoldTransaction", id.toHexString())
+    );
+  }
+
+  get id(): Bytes {
+    let value = this.get("id");
+    return value!.toBytes();
+  }
+
+  set id(value: Bytes) {
+    this.set("id", Value.fromBytes(value));
+  }
+
+  get transactionHash(): Bytes | null {
+    let value = this.get("transactionHash");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toBytes();
+    }
+  }
+
+  set transactionHash(value: Bytes | null) {
+    if (!value) {
+      this.unset("transactionHash");
+    } else {
+      this.set("transactionHash", Value.fromBytes(<Bytes>value));
     }
   }
 
